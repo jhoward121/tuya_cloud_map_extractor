@@ -52,7 +52,7 @@ def get_download_link(
 
     access_token = response["result"]["access_token"]
 
-    url = "/v1.0/users/sweepers/file/" + device_id + "/realtime-map"
+    url = "/v1.0/users/sweepers/file/" + device_id + "/download?id=470106039"
     response = tuyarequest(
         server=server,
         url=url,
