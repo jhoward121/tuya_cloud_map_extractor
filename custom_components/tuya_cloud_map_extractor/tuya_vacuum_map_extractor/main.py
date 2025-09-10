@@ -44,10 +44,10 @@ def parse_map(response: requests.models.Response):
 
 def parse_path(response: requests.models.Response, scale=2.0, header={}):
     try:
-        data = response.json()
+        data = response2.json()
         path_data = decode_path_custom0(data, header)
     except JSONDecodeError:
-        data = response.content.hex()
+        data = response2.content.hex()
         path_data = decode_path_v1(data)
     
     coords = []
@@ -124,8 +124,10 @@ def get_map(
         link = get_download_link(server, client_id, secret_key, device_id)
 
     try:
-        map_link = link["result"][0]["map_url"]
+        map_link = link["result"]["app_map"]
+        path_link = link["result"]["robot_map"]
         response = download(map_link)
+        response2 = download(path_link)
     except Exception as e:
         _LOGGER.error("Encountered an error, please include the following data in your github issue: " + str(base64.b64encode(json.dumps(link).encode())))
         raise e
